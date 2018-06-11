@@ -3,11 +3,24 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
 
 var app = express();
+
+console.log(process.env);
+
+// Conect to DB
+let MONGODB_CONNECTION_STRING = process.env.MONGODB_CONNECTION || 'mongodb://localhost:27017/app';
+let db = mongoose.connect(MONGODB_CONNECTION_STRING).connection;
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', function() {
+  // we're connected! check migration
+  console.log('connection open');
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
