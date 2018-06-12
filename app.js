@@ -10,14 +10,14 @@ var adminRouter = require('./routes/admin');
 
 var app = express();
 
-console.log(process.env);
-
 // Conect to DB
 let MONGODB_CONNECTION_STRING = process.env.MONGODB_CONNECTION || 'mongodb://localhost:27017/app';
-let db = mongoose.connect(MONGODB_CONNECTION_STRING).connection;
+mongoose.connect(MONGODB_CONNECTION_STRING);
 
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', function() {
+var connection = mongoose.connection;
+
+connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
+connection.once('open', function() {
   // we're connected! check migration
   console.log('connection open');
 });
