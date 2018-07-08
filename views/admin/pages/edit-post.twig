@@ -1,0 +1,31 @@
+{% extends '../dashboard-layout.twig' %}
+
+{% block body %}
+<div class="edit-post">
+    <form class="{{ data.action }}" method="post">
+        <div class="form-group">
+            <label for="title">Name:</label>
+            <input type="text" name="title" class="form-control" id="title" value="{{ data.item.title }}">
+        </div>
+        <div class="form-group">
+            <label for="content">Content:</label>
+            <textarea class="form-control" name="content" rows="5" id="content">{{ data.item.content }}</textarea>
+        </div>
+
+        <div class="form-group text-right">
+            <input type="submit" class="btn btn-primary" value="Save">
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block header %}
+<script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+<script>
+  tinymce.init({
+    selector: '#content',
+    theme: 'modern',
+    plugins: 'lists advlist image imagetools'
+  });
+</script>
+{% endblock %}

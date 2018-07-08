@@ -1,5 +1,14 @@
 module.exports = function (req, res, next) {
-    // console.log(res);
+    let user = {};
     
-	res.render('admin/pages/common-dashboard', { title: 'Express Dashboard Home' });
+    try {
+        user = {
+            usename: req.user.username
+        }
+    } catch (err) {
+        console.log('User not found');
+        console.log(err); 
+    }
+   
+    res.render('admin/pages/common-dashboard', { title: 'Express Dashboard Home', user: user });
 }

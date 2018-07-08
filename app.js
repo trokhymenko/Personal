@@ -1,9 +1,14 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var cookieParser = require('cookie-parser');
+var session = require('express-session')
+var passport = require('passport');
+var auth = require('./utils/auth');
+var flash = require('connect-flash');
+
 
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
@@ -11,8 +16,12 @@ var adminRouter = require('./routes/admin');
 var app = express();
 
 // Conect to DB
-let MONGODB_CONNECTION_STRING = process.env.MONGODB_CONNECTION || 'mongodb://localhost:27017/app';
-mongoose.connect(MONGODB_CONNECTION_STRING);
+let MONGODB_CONNECTION_STRING = process.env.MONGODB_CONNECTION || 'mongodb://root:example1@mongo:27017';
+let MONGODB_CONNECTION_OPTION = {
+  dbName: 'app',
+};
+
+mongoose.connect(MONGODB_CONNECTION_STRING, MONGODB_CONNECTION_OPTION);
 
 var connection = mongoose.connection;
 
@@ -28,9 +37,19 @@ app.set('view engine', 'twig');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(session({
+  secret: 'secret key',
+}));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
+
+// passport initialize
+app.use(passport.initialize());
+app.use(passport.session());
+auth.init();
+
 
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);

@@ -10,6 +10,15 @@
             </div>
         </div>
     </div>
-    <h2>Chart</h2>
-    <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+    <div class="cards">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Hello {{ user.usename }}</h5>
+                <div class="card-text">
+                    <p><b>Count Users: </b><span>0</span></p>
+                </div>
+                <a href="/admin/users" class="btn btn-primary">Go Users</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

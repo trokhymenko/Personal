@@ -85,9 +85,36 @@ body {
     box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
   }
   
+  .nav-item a {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  }
   /*
    * Utilities
    */
   
   .border-top { border-top: 1px solid #e5e5e5; }
   .border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+
+  .alert-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+  }
+
+/**
+* Icons
+*/
+
+.fa-dashboar:before {
+  content: "\f3fd";
+}
+.fa-posts:before {
+  content: "\f0ea";
+}
+.fa-media:before {
+  content: "\f1c5";
+}
+.fa-settings:before {
+  content: "\f013";
+}

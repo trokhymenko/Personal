@@ -1,0 +1,65 @@
+{% extends '../dashboard-layout.twig' %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{ title }}</h2></div>
+        <div class="col-md-4 text-right">
+            <a href="/admin/post/add" class="btn btn-info">Add new Post</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Options</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    {% for item in posts %}
+                        <tr>
+                            <th scope="row">{{ loop.index }}</th>
+                            <td>{{ item.title }}</td>
+                            <td>
+                                <a href="/admin/post/edit/{{ item.id }}" class="btn btn-outline-primary" data-user-id="{{ item.id }}">Edit</a>
+                                <a href="/admin/post/delete/{{ item.id }}" class="btn btn-outline-danger" data-user-id="{{ item.id }}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>    
+            </table> 
+           
+            {% if pages > 1 %}
+                <nav aria-label="Page navigation">
+                    <ul class="pagination text-center">
+                    {% if current == 1 %}
+                        <li class="page-item disabled"><a class="page-link">First</a></li>
+                    {% else %}
+                        <li class="page-item"><a href="/admin/posts?page=1" class="page-link">First</a></li>
+                    {% endif %}
+
+                    {% for c in 1..pages %}
+                        {% if c == current %}
+                            <li class="page-item active"><a class="page-link">{{ c }}</a></li>
+                        {% else %}
+                            <li class="page-item"><a href="/admin/posts?page={{ c }}" class="page-link">{{ c }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    </ul>
+                </nav>
+            {% endif %}
+            
+          
+            <!-- https://evdokimovm.github.io/javascript/nodejs/mongodb/pagination/expressjs/ejs/bootstrap/2017/08/20/create-pagination-with-nodejs-mongodb-express-and-ejs-step-by-step-from-scratch.html -->
+        </div>          
+    </div>
+    
+{% endblock %}
+
+{% block footer %}
+    {% include '../part/modal-add-new-user.twig' %}
+{% endblock %}

@@ -13,7 +13,12 @@
 
     <!-- Style -->
     <link rel='stylesheet' href='/stylesheets/dashboard.css' />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
+    <!-- require Scripts -->
+    <script data-main="/javascripts/admin/app" src="/javascripts/admin/require.js"></script>
+
+    {% block header %}{% endblock %}
   </head>
   <body>
         <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
@@ -21,7 +26,7 @@
             <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">Sign out</a>
+                    <a class="nav-link" href="/admin/logout">Sign out</a>
                 </li>
             </ul>
         </nav>
@@ -33,6 +38,7 @@
                             {% for item in nav %}
                                 <li class="nav-item menu-item--{{ item.key }}">
                                     <a class="nav-link" href="{{ item.href }}">
+                                    <i class="fas fa-{{ item.key }}"></i>
                                     {{ item.label }}
                                     </a>
                                 </li>
@@ -42,8 +48,20 @@
                 </nav>
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+           {% if messages|length > 0 %}
+                {% for key,message in messages %}
+                    {% for item in message %}
+                    <div class="alert alert-{{ key }} alert-dismissible fade show" role="alert">
+                        {{ item }}
+                    </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+
                 {% block body %}{% endblock %}  
             </main>
         </div>
+
+        {% block footer %}{% endblock %}
   </body>
 </html>
