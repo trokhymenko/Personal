@@ -21,10 +21,19 @@ module.exports.init = () => {
               return done(null, false, { message: 'Incorrect username.' });
             }
 
-            if (!user.validPassword(password)) {
-              return done(null, false, { message: 'Incorrect password.' });
-            }
-            return done(null, user);
+            user.validPassword(password, function(err, isValid) {
+                if (err) {
+                    return done(err);
+                }
+
+                if (isValid) {
+                    return done(null, user);
+                } else {
+                    return done(null, false, {
+                        message: "Invalid password"
+                    });
+                }
+            });
           });
       }
     ));
