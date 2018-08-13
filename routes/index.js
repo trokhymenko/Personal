@@ -22,4 +22,12 @@ router.use(locals);
 /* GET home page. */
 router.get('/', routes.public.home);
 
+/* GET all posts. */
+router.get('/blog', routes.public.blog.getAllPosts);
+
+/**
+ * Get Item Post
+ */
+router.get('/post', routes.public.blog.getItemPost);
+
 module.exports = router;
