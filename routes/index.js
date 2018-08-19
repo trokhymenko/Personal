@@ -13,6 +13,7 @@ var routes = {
 let locals = function(req, res, next) {
 	res.locals.nav = [
 		{ label: 'Home', key: 'home', href: '/' },
+		{ label: 'Blog', key: 'blog', href: '/blog' },
 	];
 
 	next();
